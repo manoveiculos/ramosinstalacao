@@ -60,21 +60,60 @@ export default function App() {
       description: "Nossa principal especialidade. Manutenção e instalação elétrica residencial e comercial com 10 anos de experiência.",
       icon: <Zap className="w-8 h-8 text-yellow-500" />,
       tag: "Elétrica",
-      whatsappMessage: "Ola, gostaria de um orcamento para servicos de instalacoes eletricas."
+      whatsappMessage: "Olá, gostaria de solicitar um orçamento para serviços de instalações elétricas."
     },
     {
       title: "Ar Condicionado",
       description: "Instalação técnica, manutenção preventiva e corretiva, além de compra e venda de aparelhos.",
       icon: <Wind className="w-8 h-8 text-blue-600" />,
       tag: "Climatização",
-      whatsappMessage: "Ola, gostaria de um orcamento para instalacao ou manutencao de ar condicionado."
+      whatsappMessage: "Olá, gostaria de solicitar um orçamento para instalação ou manutenção de ar condicionado."
     },
     {
       title: "Aquecedor a Gás",
       description: "Instalação e manutenção especializada para garantir seu banho quente com total segurança.",
       icon: <Flame className="w-8 h-8 text-orange-600" />,
       tag: "Aquecimento",
-      whatsappMessage: "Ola, gostaria de um orcamento para instalacao ou manutencao de aquecedor a gas."
+      whatsappMessage: "Olá, gostaria de solicitar um orçamento para instalação ou manutenção de aquecedor a gás."
+    }
+  ];
+
+  const testimonials = [
+    {
+      name: "Ricardo Santos",
+      role: "Síndico de Condomínio",
+      content: "A Ramos Instalações realizou toda a manutenção elétrica do nosso prédio. Profissionais extremamente competentes e pontuais.",
+      rating: 5
+    },
+    {
+      name: "Ana Paula Silva",
+      role: "Proprietária de Residência",
+      content: "Instalaram 3 aparelhos de ar condicionado na minha casa. Serviço limpo, rápido e com um acabamento impecável.",
+      rating: 5
+    },
+    {
+      name: "Marcos Oliveira",
+      role: "Empresário",
+      content: "Sempre chamo a Ramos para as manutenções dos aquecedores da minha pousada em Itapema. Confiança total no trabalho deles.",
+      rating: 5
+    }
+  ];
+
+  const portfolio = [
+    {
+      title: "Instalação Comercial",
+      category: "Elétrica",
+      image: "https://lh3.googleusercontent.com/d/1hEWPhfeaiW18nCnooMh6hU2x9exR8Zos"
+    },
+    {
+      title: "Manutenção Predial",
+      category: "Climatização",
+      image: "https://lh3.googleusercontent.com/d/1hEWPhfeaiW18nCnooMh6hU2x9exR8Zos"
+    },
+    {
+      title: "Aquecimento Central",
+      category: "Aquecedores",
+      image: "https://lh3.googleusercontent.com/d/1hEWPhfeaiW18nCnooMh6hU2x9exR8Zos"
     }
   ];
 
@@ -97,7 +136,7 @@ export default function App() {
   ];
 
   const baseWhatsappUrl = "https://wa.me/5547988800747";
-  const generalMessage = encodeURIComponent("Ola, gostaria de solicitar um orcamento para os servicos da Ramos Instalacoes.");
+  const generalMessage = encodeURIComponent("Olá, gostaria de solicitar um orçamento para os serviços da Ramos Instalações.");
   const whatsappUrl = `${baseWhatsappUrl}?text=${generalMessage}`;
   const phoneDisplay = "(47) 98880-0747";
   const instagramUrl = "https://www.instagram.com/ramosinstalacoes/";
@@ -223,8 +262,43 @@ export default function App() {
                     rel="noopener noreferrer"
                     className="text-sm font-bold text-blue-600 flex items-center gap-1 hover:gap-2 transition-all"
                   >
-                    Solicitar serviço <ChevronRight className="w-4 h-4" />
+                    Solicitar Orçamento de {service.tag} <ChevronRight className="w-4 h-4" />
                   </a>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Portfolio Section */}
+        <section id="portfolio" className="section-padding bg-slate-50">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Nossos Projetos</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto">
+                Confira alguns dos trabalhos realizados pela nossa equipe em Rio do Sul, Itapema e região.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              {portfolio.map((item, index) => (
+                <motion.div 
+                  key={index}
+                  whileHover={{ y: -10 }}
+                  className="group relative overflow-hidden rounded-3xl shadow-lg"
+                >
+                  <div className="aspect-[4/3] overflow-hidden">
+                    <img 
+                      src={item.image} 
+                      alt={item.title} 
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
+                    <span className="text-blue-400 text-xs font-bold uppercase tracking-widest mb-2">{item.category}</span>
+                    <h4 className="text-white text-xl font-bold">{item.title}</h4>
+                  </div>
                 </motion.div>
               ))}
             </div>
@@ -270,6 +344,35 @@ export default function App() {
                   <p className="text-xs font-bold uppercase tracking-widest">Anos de História</p>
                 </div>
               </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials Section */}
+        <section className="section-padding bg-white">
+          <div className="max-w-7xl mx-auto">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">O que dizem nossos clientes</h2>
+              <p className="text-slate-600 max-w-2xl mx-auto">
+                A satisfação de quem já contratou nossos serviços é a nossa maior garantia de qualidade.
+              </p>
+            </div>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              {testimonials.map((testimonial, index) => (
+                <div key={index} className="p-8 rounded-3xl bg-slate-50 border border-slate-100 relative">
+                  <div className="flex gap-1 mb-4">
+                    {[...Array(testimonial.rating)].map((_, i) => (
+                      <ThumbsUp key={i} className="w-4 h-4 text-yellow-500 fill-yellow-500" />
+                    ))}
+                  </div>
+                  <p className="text-slate-600 italic mb-6">"{testimonial.content}"</p>
+                  <div>
+                    <p className="font-bold text-slate-900">{testimonial.name}</p>
+                    <p className="text-xs text-slate-500">{testimonial.role}</p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
