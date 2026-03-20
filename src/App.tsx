@@ -50,7 +50,24 @@ export default function App() {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Solicitação enviada com sucesso! Entraremos em contato em breve.');
+    
+    const servicoMap: Record<string, string> = {
+      'eletrica': 'Instalações Elétricas',
+      'ar-condicionado': 'Ar Condicionado',
+      'aquecedor': 'Aquecedor a Gás',
+      'outros': 'Outros Serviços'
+    };
+
+    const servicoNome = servicoMap[formData.servico] || formData.servico;
+    
+    const message = `Olá, meu nome é ${formData.nome}.
+Telefone: ${formData.telefone}
+Serviço de interesse: ${servicoNome}
+Mensagem: ${formData.mensagem}`;
+
+    const encodedMessage = encodeURIComponent(message);
+    window.open(`${baseWhatsappUrl}?text=${encodedMessage}`, '_blank');
+    
     setFormData({ nome: '', telefone: '', servico: '', mensagem: '' });
   };
 
@@ -96,24 +113,6 @@ export default function App() {
       role: "Empresário",
       content: "Sempre chamo a Ramos para as manutenções dos aquecedores da minha pousada em Itapema. Confiança total no trabalho deles.",
       rating: 5
-    }
-  ];
-
-  const portfolio = [
-    {
-      title: "Instalação Comercial",
-      category: "Elétrica",
-      image: "https://lh3.googleusercontent.com/d/1hEWPhfeaiW18nCnooMh6hU2x9exR8Zos"
-    },
-    {
-      title: "Manutenção Predial",
-      category: "Climatização",
-      image: "https://lh3.googleusercontent.com/d/1hEWPhfeaiW18nCnooMh6hU2x9exR8Zos"
-    },
-    {
-      title: "Aquecimento Central",
-      category: "Aquecedores",
-      image: "https://lh3.googleusercontent.com/d/1hEWPhfeaiW18nCnooMh6hU2x9exR8Zos"
     }
   ];
 
@@ -264,41 +263,6 @@ export default function App() {
                   >
                     Solicitar Orçamento de {service.tag} <ChevronRight className="w-4 h-4" />
                   </a>
-                </motion.div>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        {/* Portfolio Section */}
-        <section id="portfolio" className="section-padding bg-slate-50">
-          <div className="max-w-7xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">Nossos Projetos</h2>
-              <p className="text-slate-600 max-w-2xl mx-auto">
-                Confira alguns dos trabalhos realizados pela nossa equipe em Rio do Sul, Itapema e região.
-              </p>
-            </div>
-            
-            <div className="grid md:grid-cols-3 gap-8">
-              {portfolio.map((item, index) => (
-                <motion.div 
-                  key={index}
-                  whileHover={{ y: -10 }}
-                  className="group relative overflow-hidden rounded-3xl shadow-lg"
-                >
-                  <div className="aspect-[4/3] overflow-hidden">
-                    <img 
-                      src={item.image} 
-                      alt={item.title} 
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8">
-                    <span className="text-blue-400 text-xs font-bold uppercase tracking-widest mb-2">{item.category}</span>
-                    <h4 className="text-white text-xl font-bold">{item.title}</h4>
-                  </div>
                 </motion.div>
               ))}
             </div>
