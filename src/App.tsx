@@ -48,6 +48,14 @@ export default function App() {
     mensagem: ''
   });
 
+  const trackConversion = () => {
+    if (typeof (window as any).gtag === 'function') {
+      (window as any).gtag('event', 'conversion', {
+        'send_to': 'AW-18030345442/801UCLbzgY4cEOL5xJVD'
+      });
+    }
+  };
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
@@ -66,6 +74,10 @@ Serviço de interesse: ${servicoNome}
 Mensagem: ${formData.mensagem}`;
 
     const encodedMessage = encodeURIComponent(message);
+    
+    // Google Ads Conversion Event
+    trackConversion();
+
     window.open(`${baseWhatsappUrl}?text=${encodedMessage}`, '_blank');
     
     setFormData({ nome: '', telefone: '', servico: '', mensagem: '' });
@@ -259,6 +271,7 @@ Mensagem: ${formData.mensagem}`;
                     href={`${baseWhatsappUrl}?text=${encodeURIComponent(service.whatsappMessage)}`}
                     target="_blank"
                     rel="noopener noreferrer"
+                    onClick={() => trackConversion()}
                     className="text-sm font-bold text-blue-600 flex items-center gap-1 hover:gap-2 transition-all"
                   >
                     Solicitar Orçamento de {service.tag} <ChevronRight className="w-4 h-4" />
